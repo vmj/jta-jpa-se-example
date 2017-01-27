@@ -1,0 +1,111 @@
+# Example Java SE + JTA + JPA application
+
+This repository contains an application that demonstrates transactions across two databases.
+The application is using BTM as the transaction manager (JTA) and Hibernate as the ORM (JPA).
+They are both readily usable in a Java SE environment.
+For example, small apps or 12 factor apps.
+
+## Why and What?
+
+Think what you will about the enterprise Java as a whole, some of their technologies are really neat.
+Also, since they are more and more usable without any heavy frameworks or boilerplate or configuration,
+they are a real contender in Java SE space.
+
+JTA allows you to cleanly separate the transaction management concern from the connection management concern,
+even if you're only planning to use a single database in your application.  BTM as a transaction manager also
+optimizes away the 2PC (2 Phase Commit) when it sees that there's only one data source.  And still, 2PC is right
+behind the corner, if you need it, for example to do transactions with a database and a messaging system.
+
+JPA a standard persistence API, and the Hibernate ORM is just a nugget of gold :)
+
+## How it works
+
+For simplicity, this project contains just one module: two classes and two resource files.
+
+You don't need to install Gradle (the build tool), as this is using the wrapper.
+For example, to build the app on MacOS X or Linux or some other unixish thing, run:
+
+  $ ./gradlew assemble
+
+or, in you're on Windows, use
+
+  $ ./gradlew.bat assemble
+
+instead.
+
+When you run the application, it will
+
+ 1. insert one user object into a database called `users1`,
+ 2. then move all the users from `users1` to another database called `users2`.
+
+The first step is one transaction, and the second step is another.
+I.e. if the moving fails in the middle, the whole second step (both databases) is rolled back.
+
+## How to try it out
+
+You will need Java (version 7 or newer) and Apache Derby installed.
+
+This example is not using an in-memory database like most of the persistence examples,
+so a bit of database setup is needed.
+
+###### Install Apache Derby
+
+For most of the platforms there is an easy way to install Apache Derby.
+For me, on MacOS X, it was:
+
+  $ brew install derby
+
+You will need to be able to run the Derby tools.
+For convenience, I set the following alias:
+
+  $ export DERBY=/usr/local/opt/derby/libexec/lib
+  $ export DERBY_TOOLS_CLASSPATH="$DERBY/derby.jar:$DERBY/derbytools.jar"
+  $ alias derby="java -cp $DERBY_TOOLS_CLASSPATH"
+
+With that alias, I can try if the Derby installation is working:
+
+  $ derby org.apache.derby.tools.sysinfo
+
+###### Initialize test databases
+
+To create the test databases `users1` and `users2`, invoke something like:
+
+  $ derby org.apache.derby.tools.ij
+  ij> connect 'jdbc:derby:users1;create=true';
+  ij> connect 'jdbc:derby:users2;create=true';
+  ij(CONNECTION1)> exit;
+
+That will create two directories, `users1` and `users2`,
+in the current directory.
+
+###### Initialize the schema in the databases
+
+You could create the schemas by hand, but it's probably easier to let Hibernate do that.
+
+Enable the `drop-and-create` action
+in the `src/main/resources/META-INF/persistence.xml`,
+for both databases,
+and also
+enable the `allowLocalTransactions` flag
+in the `src/main/groovy/fi/linuxbox/jta/Main.groovy`,
+again for both databases.
+
+Then run the app once:
+
+  $ ./gradlew run
+
+Now you can revert your changes.  E.g.:
+
+  $ git checkout -- src
+
+Now that the database is fully initialized and the changes are reverted,
+you can run the app without those hacks as many times as you wish:
+
+  $ ./gradlew run
+  $ ./gradlew run
+  $ ./gradlew run
+  $ ./gradlew run
+  $ ./gradlew run
+  ...
+
+Have fun!
