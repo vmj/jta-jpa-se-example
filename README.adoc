@@ -16,22 +16,20 @@ even if you're only planning to use a single database in your application.  BTM 
 optimizes away the 2PC (2 Phase Commit) when it sees that there's only one data source.  And still, 2PC is right
 behind the corner, if you need it, for example to do transactions with a database and a messaging system.
 
-JPA a standard persistence API, and the Hibernate ORM is just a nugget of gold :)
+JPA is a standard persistence API, and the Hibernate ORM is just a nugget of gold :)
 
 ## How it works
 
-For simplicity, this project contains just one module: two classes and two resource files.
+For simplicity, this project contains just one module: three classes and three resource files.
 
 You don't need to install Gradle (the build tool), as this is using the wrapper.
 For example, to build the app on MacOS X or Linux or some other unixish thing, run:
 
   $ ./gradlew assemble
 
-or, in you're on Windows, use
+or, if you're on Windows, use this instead:
 
   $ ./gradlew.bat assemble
-
-instead.
 
 When you run the application, it will
 

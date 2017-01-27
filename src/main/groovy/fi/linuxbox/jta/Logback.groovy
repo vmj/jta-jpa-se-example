@@ -37,8 +37,8 @@ class Logback extends BasicConfigurator {
         //lc.getLogger("org.hibernate.SQL").level = TRACE
         //  - parameter binding logging
         //lc.getLogger("org.hibernate.type.descriptor.sql").level = TRACE
-        //  - DDL logging
-        //lc.getLogger("org.hibernate.tool.hbm2ddl").level = TRACE
+        //  - DDL logging (WARN warns about not being able to drop non-existing things)
+        lc.getLogger("org.hibernate.tool.schema").level = ERROR
         //  - cache activity
         //lc.getLogger("org.hibernate.cache").level = TRACE
         //  - this I haven't seen, so I dunno...
