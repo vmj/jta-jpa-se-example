@@ -1,3 +1,5 @@
+image:https://travis-ci.org/vmj/jta-jpa-se-example.svg?branch=master["Build Status", link="https://travis-ci.org/vmj/jta-jpa-se-example"]
+
 # Example Java SE + JTA + JPA application
 
 This repository contains an application that demonstrates transactions across two databases.

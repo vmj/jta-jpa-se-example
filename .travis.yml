@@ -1,0 +1,26 @@
+language: java
+# sudo, dist, and group are required for oraclejdk9.
+# Remove them as soon as container infra has java9 support.
+# Also, see gradlew.java9
+sudo: required
+dist: trusty
+group: edge
+# both jdk7 variants seems to be missing on trusty VM.
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq oracle-java7-installer
+  - sudo apt-get install -qq openjdk-7-jdk
+jdk:
+  - oraclejdk7
+  - openjdk7
+  - oraclejdk8
+  - oraclejdk9
+# A peculiarity of dependency caching in Gradle means that to avoid uploading the cache after every build the following
+# lines must be added:
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/

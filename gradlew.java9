@@ -1,0 +1,6 @@
+# Source this file into gradlew.
+# The JAVA_HOME below is Travis CI specific.
+if [ "$JAVA_HOME" = "/usr/lib/jvm/java-9-oracle" ] ; then
+    export GRADLE_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED"
+    cp gradle.properties.java9 gradle.properties
+fi
