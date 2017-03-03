@@ -48,6 +48,10 @@ You will need Java (version 7 or newer) and Apache Derby installed.
 This example is not using an in-memory database like most of the persistence examples,
 so a bit of database setup is needed.
 
+While the example application is running, it embeds the Derby database engine.
+The installation is required because the example is not set up to create the database.
+I.e. the database has to exist.
+
 ###### Install Apache Derby
 
 For most of the platforms there is an easy way to install Apache Derby.
@@ -84,11 +88,11 @@ You could create the schemas by hand, but it's probably easier to let Hibernate 
 
 Enable the `drop-and-create` action
 in the `src/main/resources/META-INF/persistence.xml`,
-for both databases,
+for *both* databases,
 and also
 enable the `allowLocalTransactions` flag
-in the `src/main/groovy/fi/linuxbox/jta/Main.groovy`,
-again for both databases.
+in the `src/main/java/fi/linuxbox/jta/Main.java`,
+again for *both* databases.
 
 Then run the app once:
 

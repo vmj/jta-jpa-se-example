@@ -3,7 +3,11 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
                                  http://xmlns.jcp.org/xml/ns/persistence_2_1.xsd">
+    <!-- This file is read by Hibernate (JPA), not by BTM -->
+
+    <!-- When creating Entity Manager Factories, persistence unit name is what is used -->
     <persistence-unit name="testPU1">
+        <!-- When configuring BTM (in Main.java), this is the jndiName parameter -->
         <jta-data-source>jdbc/testDS1</jta-data-source>
 
         <class>fi.linuxbox.jta.User</class>
@@ -11,7 +15,7 @@
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>
-            <!--
+            <!-- Enabling this allows Hibernate to execute DDLs against this database
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
             -->
             <property name="hibername.format_sql" value="true"/>
@@ -27,7 +31,7 @@
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>
-            <!--
+            <!-- Enabling this allows Hibernate to execute DDLs against this database
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
             -->
             <property name="hibername.format_sql" value="true"/>

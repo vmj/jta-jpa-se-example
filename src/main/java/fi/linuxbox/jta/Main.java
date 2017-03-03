@@ -43,7 +43,7 @@ class Main {
             tx.begin();
             log.info("Persisting one new User in users1");
             createUser(emf1);
-            log.debug("Commiting Transaction");
+            log.debug("Committing Transaction");
             tx.commit();
         } catch (final Exception e) {
             log.error("Failed to add user to users1", e);
@@ -56,7 +56,7 @@ class Main {
             tx.begin();
             log.info("Moving users from users1 to users2");
             moveUsers(emf1, emf2);
-            log.debug("Commiting Transaction");
+            log.debug("Committing Transaction");
             tx.commit();
         } catch (final Exception e) {
             log.error("Failed to move users; none was moved", e);
@@ -102,20 +102,37 @@ class Main {
     }
 
     /**
+     * Hibernate needs a DataSource.
+     * This method initializes one using BTM pooling data source as the implementation,
+     * and Derby as the driver.
+     *
      * @param databaseName
      *      The Derby database name (the directory name).
      * @param jndiName
      *      Hibernate will find the data source in JNDI by this name.
+     *      This is the same name as used in persistence.xml, jta-data-source element.
      * @param allowLocalTransactions
      *      Whether to allow local transactions (those are needed for the drop-and-create actions).
      */
     private static void initDerbyDataSource(final String databaseName, final String jndiName, final boolean allowLocalTransactions) {
         final PoolingDataSource ds = new PoolingDataSource();
+
+        // Configure the pool
+        // https://github.com/bitronix/btm/wiki/JDBC-pools-configuration
         ds.setAllowLocalTransactions(allowLocalTransactions);
+        ds.setMinPoolSize(1); // default is 0
+        ds.setMaxPoolSize(3); // in this example, this could be 1 (we only have one thread)
+        ds.setShareTransactionConnections(true); // defaults is false only for backwards comp
+        ds.setPreparedStatementCacheSize(10); // default is 0 (disabled)
+        ds.setEnableJdbc4ConnectionTest(true); // default is false, but Derby supports JDBC4
+
+        // Use Derby XA driver and configure the driver properties
         ds.setClassName("org.apache.derby.jdbc.EmbeddedXADataSource");
-        ds.setMaxPoolSize(3);
-        ds.setUniqueName(jndiName);
         ds.getDriverProperties().put("databaseName", databaseName);
+
+        // Make the data source available to Hibernate via JNDI
+        ds.setUniqueName(jndiName);
+
         log.trace("Initializing " + databaseName + " pooled data source");
         ds.init();
     }
