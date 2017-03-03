@@ -22,7 +22,7 @@ dependencies {
     runtime 'org.hibernate:hibernate-entitymanager:5.2.6.Final'
 
     // Use Derby as the database
-    runtime 'org.apache.derby:derby:10.13.1.1'
+    compile 'org.apache.derby:derby:10.13.1.1'
 
     // Logging (Hibernate only works with Slf4j IF the logback is used as a backend)
     runtime 'org.slf4j:slf4j-api:1.7.22'

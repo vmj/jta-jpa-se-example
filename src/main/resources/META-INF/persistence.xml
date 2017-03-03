@@ -15,9 +15,8 @@
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>
-            <!-- Enabling this allows Hibernate to execute DDLs against this database
-            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-            -->
+            <!-- Enabling this allows Hibernate to execute DDLs against this database -->
+            <property name="javax.persistence.schema-generation.database.action" value="create"/>
             <property name="hibername.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
         </properties>
@@ -31,9 +30,8 @@
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>
-            <!-- Enabling this allows Hibernate to execute DDLs against this database
-            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-            -->
+            <!-- Enabling this allows Hibernate to execute DDLs against this database -->
+            <property name="javax.persistence.schema-generation.database.action" value="create"/>
             <property name="hibername.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
         </properties>

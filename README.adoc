@@ -24,91 +24,29 @@ JPA is a standard persistence API, and the Hibernate ORM is just a nugget of gol
 
 For simplicity, this project contains just one module: three classes and three resource files.
 
-You don't need to install Gradle (the build tool), as this is using the wrapper.
-For example, to build the app on MacOS X or Linux or some other unixish thing, run:
+Make sure you've got Java 7 (JDK) or newer installed.
+To build and run this example, use the provided Gradle wrapper as shown here.
+For example, to run the app on MacOS X or Linux or some other unixish thing, run:
 
-  $ ./gradlew assemble
+  $ ./gradlew run
 
 or, if you're on Windows, use this instead:
 
-  $ ./gradlew.bat assemble
+  $ ./gradlew.bat run
 
 When you run the application, it will
 
  1. insert one user object into a database called `users1`,
  2. then move all the users from `users1` to another database called `users2`.
+ 3. and finally list the users in `users2`.
 
 The first step is one transaction, and the second step is another.
 I.e. if the moving fails in the middle, the whole second step (both databases) is rolled back.
 
-## How to try it out
-
-You will need Java (version 7 or newer) and Apache Derby installed.
-
-This example is not using an in-memory database like most of the persistence examples,
-so a bit of database setup is needed.
-
-While the example application is running, it embeds the Derby database engine.
-The installation is required because the example is not set up to create the database.
-I.e. the database has to exist.
-
-###### Install Apache Derby
-
-For most of the platforms there is an easy way to install Apache Derby.
-For me, on MacOS X, it was:
-
-  $ brew install derby
-
-You will need to be able to run the Derby tools.
-On MacOS X, I can check that the Derby installation is working with:
-
-  $ /usr/local/opt/derby/bin/sysinfo
-
-See Getting Started with Derby at the
-https://db.apache.org/derby/manuals/index.html[Derby documentation site]
-for platform specific instructions.
-
-
-###### Initialize test databases
-
-To create the test databases `users1` and `users2`, invoke something like:
-
-  $ /usr/local/opt/derby/bin/ij
-  ij> connect 'jdbc:derby:users1;create=true';
-  ij> connect 'jdbc:derby:users2;create=true';
-  ij(CONNECTION1)> exit;
-
-That will create two directories, `users1` and `users2`,
-in the current directory.
-
-###### Initialize the schema in the databases
-
-You could create the schemas by hand, but it's probably easier to let Hibernate do that.
-
-Enable the `drop-and-create` action
-in the `src/main/resources/META-INF/persistence.xml`,
-for *both* databases,
-and also
-enable the `allowLocalTransactions` flag
-in the `src/main/java/fi/linuxbox/jta/Main.java`,
-again for *both* databases.
-
-Then run the app once:
-
-  $ ./gradlew run
-
-Now you can revert your changes.  E.g.:
-
-  $ git checkout -- src
-
-Now that the database is fully initialized and the changes are reverted,
-you can run the app without those hacks as many times as you wish:
-
-  $ ./gradlew run
-  $ ./gradlew run
-  $ ./gradlew run
-  $ ./gradlew run
-  $ ./gradlew run
-  ...
+Note that the example application will create the databases if they do not exist.
+Derby is used as the database engine, so the databases will reside in the current directory,
+unless you change that by providing a Java system property `derby.system.home`.
+Also, the schemas will be created if they do not exist.
+You can remove all the generated files with `reallyclean` and `clean` Gradle tasks.
 
 Have fun!
