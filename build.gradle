@@ -28,3 +28,7 @@ dependencies {
     runtime 'org.slf4j:slf4j-api:1.7.22'
     compile 'ch.qos.logback:logback-classic:1.1.8'
 }
+
+task reallyclean(type: Delete) {
+    delete 'users1', 'users2', 'btm1.tlog', 'btm2.tlog', 'derby.log'
+}
