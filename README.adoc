@@ -60,21 +60,20 @@ For me, on MacOS X, it was:
   $ brew install derby
 
 You will need to be able to run the Derby tools.
-For convenience, I set the following alias:
+On MacOS X, I can check that the Derby installation is working with:
 
-  $ export DERBY=/usr/local/opt/derby/libexec/lib
-  $ export DERBY_TOOLS_CLASSPATH="$DERBY/derby.jar:$DERBY/derbytools.jar"
-  $ alias derby="java -cp $DERBY_TOOLS_CLASSPATH"
+  $ /usr/local/opt/derby/bin/sysinfo
 
-With that alias, I can try if the Derby installation is working:
+See Getting Started with Derby at the
+https://db.apache.org/derby/manuals/index.html[Derby documentation site]
+for platform specific instructions.
 
-  $ derby org.apache.derby.tools.sysinfo
 
 ###### Initialize test databases
 
 To create the test databases `users1` and `users2`, invoke something like:
 
-  $ derby org.apache.derby.tools.ij
+  $ /usr/local/opt/derby/bin/ij
   ij> connect 'jdbc:derby:users1;create=true';
   ij> connect 'jdbc:derby:users2;create=true';
   ij(CONNECTION1)> exit;
