@@ -1,7 +1,6 @@
 group 'fi.linuxbox.jta'
 version '1.0-SNAPSHOT'
 
-apply plugin: 'groovy'
 apply plugin: 'application'
 
 sourceCompatibility = 1.7
@@ -13,8 +12,6 @@ repositories {
 }
 
 dependencies {
-    compile 'org.codehaus.groovy:groovy:2.4.8:indy'
-
     // Use BTM as the JTA provider (and JNDI provider)
     compile 'org.codehaus.btm:btm:2.1.4'
 
