@@ -50,3 +50,10 @@ Also, the schemas will be created if they do not exist.
 You can remove all the generated files with `reallyclean` and `clean` Gradle tasks.
 
 Have fun!
+
+### PS. Note about Java 9 (EA)
+
+At the time of this writing, Gradle needs a couple of environment variables in order to run on Java 9:
+
+  export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED'
+  export GRADLE_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED'

@@ -1,7 +1,6 @@
 language: java
 # sudo, dist, and group are required for oraclejdk9.
 # Remove them as soon as container infra has java9 support.
-# Also, see gradlew.java9
 sudo: required
 dist: trusty
 group: edge
@@ -10,6 +9,12 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq oracle-java7-installer
   - sudo apt-get install -qq openjdk-7-jdk
+# Environment variables are for Java9.
+# But they need to work on Java 7 and 8, hence the IgnoreUnrecognizedVMOptions
+env:
+  global:
+    - JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED'
+    - GRADLE_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED'
 jdk:
   - oraclejdk7
   - openjdk7

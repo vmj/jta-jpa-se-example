@@ -1,6 +1,4 @@
 #!/usr/bin/env sh
-# Travis CI java9 support
-. ./gradle/gradlew.java9
 
 ##############################################################################
 ##

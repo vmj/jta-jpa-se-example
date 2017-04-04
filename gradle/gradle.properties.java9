@@ -1,2 +1,0 @@
-# On java9, this is needed to be able to launch the Gradle daemon.
-org.gradle.jvmargs=--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED
