@@ -5,7 +5,7 @@ sudo: required
 dist: trusty
 group: edge
 # both jdk7 variants seems to be missing on trusty VM.
-#before_install:
+before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq oracle-java7-installer
 #  - sudo apt-get install -qq openjdk-7-jdk
