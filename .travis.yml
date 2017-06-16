@@ -5,10 +5,10 @@ sudo: required
 dist: trusty
 group: edge
 # both jdk7 variants seems to be missing on trusty VM.
-before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq oracle-java7-installer
-  - sudo apt-get install -qq openjdk-7-jdk
+#before_install:
+#  - sudo apt-get update -qq
+#  - sudo apt-get install -qq oracle-java7-installer
+#  - sudo apt-get install -qq openjdk-7-jdk
 # Environment variables are for Java9.
 # But they need to work on Java 7 and 8, hence the IgnoreUnrecognizedVMOptions
 env:
@@ -17,9 +17,12 @@ env:
     - GRADLE_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED'
 jdk:
   - oraclejdk7
-  - openjdk7
+#  - openjdk7
   - oraclejdk8
   - oraclejdk9
+matrix:
+  allow_failures:
+    - jdk: oraclejdk9
 # A peculiarity of dependency caching in Gradle means that to avoid uploading the cache after every build the following
 # lines must be added:
 before_cache:
