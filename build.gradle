@@ -3,7 +3,7 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'application'
 
-sourceCompatibility = 1.7
+sourceCompatibility = 1.8
 
 mainClassName = 'fi.linuxbox.jta.Main'
 
@@ -19,14 +19,18 @@ dependencies {
     compile 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final'
 
     // Use Hibernate as the JPA provider
-    runtime 'org.hibernate:hibernate-entitymanager:5.2.6.Final'
+    runtime 'org.hibernate:hibernate-entitymanager:5.2.10.Final'
+    // On Java 9, Java EE things that are bundled in Java SE 8,
+    // are no longer on the classpath by default.
+    // This works around that.
+    runtime 'javax.xml.bind:jaxb-api:2.2.12'
 
     // Use Derby as the database
     compile 'org.apache.derby:derby:10.13.1.1'
 
     // Logging (Hibernate only works with Slf4j IF the logback is used as a backend)
-    runtime 'org.slf4j:slf4j-api:1.7.22'
-    compile 'ch.qos.logback:logback-classic:1.1.8'
+    runtime 'org.slf4j:slf4j-api:1.7.25'
+    compile 'ch.qos.logback:logback-classic:1.2.3'
 }
 
 task reallyclean(type: Delete) {

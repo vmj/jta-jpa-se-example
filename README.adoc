@@ -24,7 +24,7 @@ JPA is a standard persistence API, and the Hibernate ORM is just a nugget of gol
 
 For simplicity, this project contains just one module: three classes and three resource files.
 
-Make sure you've got Java 7 (JDK) or newer installed.
+Make sure you've got Java 8 (JDK) or newer installed.
 To build and run this example, use the provided Gradle wrapper as shown here.
 For example, to run the app on MacOS X or Linux or some other unixish thing, run:
 
@@ -50,10 +50,3 @@ Also, the schemas will be created if they do not exist.
 You can remove all the generated files with `reallyclean` and `clean` Gradle tasks.
 
 Have fun!
-
-### PS. Note about Java 9 (EA)
-
-At the time of this writing, Gradle needs a couple of environment variables in order to run on Java 9:
-
-  export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED'
-  export GRADLE_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED'
